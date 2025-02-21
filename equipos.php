@@ -2,14 +2,14 @@
 include 'db.php'; 
 include 'sidebar.php'; 
 
-$message = ""; // Variable para el mensaje de confirmación
+$message = "";
 $nombre = ""; 
 $tipo_equipo = ""; 
 $estado = ""; 
 $descripcion = ""; 
-$id_equipo = ""; // Para almacenar el ID del equipo a modificar
+$id_equipo = "";
 
-// Manejo de la inserción de un nuevo equipo
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'add') {
     $nombre = $_POST['nombre'];
     $tipo_equipo = $_POST['tipo_equipo'];
@@ -22,7 +22,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
         $stmt->bind_param("ssss", $nombre, $tipo_equipo, $estado, $descripcion);
 
         if ($stmt->execute()) {
-            $message = "Equipo agregado correctamente."; // Mensaje de confirmación
+            $message = "Equipo agregado correctamente."; 
         } else {
             $message = "Error al agregar el equipo: " . $stmt->error;
         }
@@ -33,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     }
 }
 
-// Manejo de la modificación de un equipo
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'edit') {
     $id_equipo = $_POST['id_equipo'];
     $nombre = $_POST['nombre'];
@@ -58,7 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     }
 }
 
-// Manejo de la eliminación de un equipo
+
 if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['action'] == 'delete') {
     $id_equipo = $_POST['id_equipo'];
 
@@ -75,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['action']) && $_POST['a
     $stmt->close();
 }
 
-// Obtener todos los equipos
+
 $sql = "SELECT id_Equipo, Nombre, Tipo_Equipo, Estado, Descripcion FROM equipo ORDER BY Nombre ASC"; 
 $result = $conn->query($sql);
 ?>
@@ -168,7 +168,6 @@ $result = $conn->query($sql);
     </div>
 </div>
 
-<!-- Modal para editar equipo -->
 <div id="editModal" style="display:none; position:fixed; left:0; top:0; width:100%; height:100%; background-color:rgba(0,0,0,0.5);">
     <div style="background:white; margin:100px auto; padding:20px; width:300px; border-radius:5px;">
         <h2>Modificar Equipo</h2>
@@ -199,7 +198,7 @@ $result = $conn->query($sql);
     </div>
 </div>
 
-<!-- Formulario oculto para eliminar equipo -->
+
 <form id="deleteForm" action="" method="POST" style="display:none;">
     <input type="hidden" name="action" value="delete">
     <input type="hidden" id="delete_id_equipo" name="id_equipo">

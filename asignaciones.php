@@ -2,7 +2,11 @@
 include 'db.php'; 
 include 'sidebar.php'; 
 
+session_start(); // Asegúrate de que esta línea esté presente
+
 $message = "";
+
+$resultUsuarios = $conn->query("SELECT Correo, Nombre FROM usuario ORDER BY Nombre ASC");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['usuario_Correo']) && isset($_POST['equipo_id_Equipo'])) {
@@ -90,11 +94,11 @@ $resultAsignaciones = $conn->query("SELECT a.id_Asignaciones, u.Nombre AS Usuari
         <?php endif; ?>
         
         <form action="" method="POST"> 
-            <label for="usuario_Correo">Usuario:</label>
+            <label for="usuario_Correo">Correo del Usuario:</label>
             <select id="usuario_Correo" name="usuario_Correo" required>
                 <option value="">Seleccione un usuario</option>
                 <?php while ($row = $resultUsuarios->fetch_assoc()): ?>
-                    <option value="<?php echo $row['Correo']; ?>"><?php echo htmlspecialchars($row['Nombre']); ?></option>
+                    <option value="<?php echo htmlspecialchars($row['Correo']); ?>"><?php echo htmlspecialchars($row['Nombre']) . " (" . htmlspecialchars($row['Correo']) . ")"; ?></option>
                 <?php endwhile; ?>
             </select>
             
@@ -105,9 +109,9 @@ $resultAsignaciones = $conn->query("SELECT a.id_Asignaciones, u.Nombre AS Usuari
                     <option value="<?php echo $row['id_Equipo']; ?>"><?php echo htmlspecialchars($row['Nombre']); ?></option>
                 <?php endwhile; ?>
             </select>
-            
             <button type="submit" class="btn-update">Agregar Asignación</button>
         </form>
+        
     </div>
     
     <div class="user-table">

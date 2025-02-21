@@ -92,12 +92,14 @@ if (isset($_SESSION['confirmation_message'])) {
              
             <button type="submit" class="btn-update" onclick="return confirmAddUser  ();">Agregar Usuario</button>
         </form>
+        
     </div>
     
     <div class="user-table">
         <h1>Personas JX</h1>
         <ul>
             <?php
+
             if ($result && $result->num_rows > 0) {
                 while ($row = $result->fetch_assoc()) {
                     echo "<li>

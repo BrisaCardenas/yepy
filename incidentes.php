@@ -5,13 +5,13 @@ include 'sidebar.php';
 $message = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $usuario_correo = $_POST['usuario_correo']; // Cambiado a correo
+    $usuario_correo = $_POST['usuario_correo'];
     $equipo_id = $_POST['equipo_id'];
     $fecha = $_POST['fecha'];
     $descripcion = $_POST['descripcion'];
 
     if (!empty($usuario_correo) && !empty($equipo_id) && !empty($fecha) && !empty($descripcion)) {
-        // Insertar incidente
+        
         $stmtInsert = $conn->prepare("INSERT INTO incidentes (usuario_Correo, equipo_id_Equipo, Fecha, Descripcion_suceso) VALUES (?, ?, ?, ?)");
         $stmtInsert->bind_param("siss", $usuario_correo, $equipo_id, $fecha, $descripcion);
 
@@ -26,11 +26,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $message = "Por favor, complete todos los campos.";
     }
 
-    // Manejo del cambio de estado
+    
     if (isset($_POST['estado']) && !empty($_POST['estado'])) {
         $nuevo_estado = $_POST['estado'];
 
-        // Actualizar estado del equipo
+        
         $stmtUpdateEstado = $conn->prepare("UPDATE equipo SET Estado = ? WHERE id_Equipo = ?");
         $stmtUpdateEstado->bind_param("si", $nuevo_estado, $equipo_id);
 
@@ -44,7 +44,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 }
 
-// Obtener usuarios y equipos
+
 $resultUsuarios = $conn->query("SELECT Correo, Nombre FROM usuario ORDER BY Nombre ASC"); 
 $resultEquipos = $conn->query("SELECT id_Equipo, Nombre FROM equipo ORDER BY Nombre ASC"); 
 $resultIncidentes = $conn->query("SELECT i.id_Incidentes, u.Nombre AS Usuario, e.Nombre AS Equipo, i.Fecha, i.Descripcion_suceso 
@@ -70,7 +70,7 @@ $resultIncidentes = $conn->query("SELECT i.id_Incidentes, u.Nombre AS Usuario, e
             if (selectedValue) {
                 const confirmMessage = `¿Estás seguro de que deseas cambiar el estado a "${selectedValue}"?`;
                 if (!confirm(confirmMessage)) {
-                    estadoSelect.value = ""; // Restablece el valor si el usuario cancela
+                    estadoSelect.value = "";
                 }
             }
         }

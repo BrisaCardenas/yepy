@@ -17,17 +17,15 @@ body {
 }
 
 
-    .edit-form {
-        background: #fff; /* Fondo blanco */
-        padding: 80px; /* Espaciado interno */
-        border-radius: 8px; /* Bordes redondeados */
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra */
-        margin-bottom: 20px; /* Espacio inferior */
-        max-width: 800px; /* Ancho máximo del formulario */
-        margin: 0 auto; /* Centra el formulario */
-    }
-
-
+.edit-form {
+    background: #fff; 
+    padding: 80px;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
 
 .user-table {
     background: #fff;
@@ -71,10 +69,12 @@ body {
 .edit-form .btn-delete {
     background-color: #e74c3c;
     color: white;
+
 }
 
 .edit-form .btn-delete:hover {
     background-color: #c0392b;
+    
 }
 
 .user-table h1 {
